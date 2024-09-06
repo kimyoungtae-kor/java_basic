@@ -16,9 +16,16 @@ public class Exer2 {
 			money = money % units[i];
 		}
 		
-		for(int arr:counts) {
-			System.out.print(arr + " ");
+		
+		for(int i=0;i <counts.length;i++) {
+				System.out.printf("%d원 짜리가 %d" +(units[i] >= 1000?"장":"개") + "\n",units[i],counts[i]);
+
 		}
+		
+//		for(int arr:counts) {
+//			System.out.printf("%d원 짜리가 %d" +(units[arr] >= 1000?"장":"개") + "\n",counts,arr);
+//			System.out.print(arr + " ");
+//		}
 		//{2,2,0,3,4,1,0,1,1}
 		
 		//2. Scanner 사람 이름을 입력 받기
@@ -26,37 +33,44 @@ public class Exer2 {
 		// 사람이름들을 문자열 배열 만들어서
 		//프로그램 종료직전 확인
 		
+		
+		System.out.println();
 		Scanner scanner = new Scanner(System.in);
 
 
 		String [] namearr = new String[3];
 		
-		int i = 1;
+		int i = 0;
 		while(true) {
+			System.out.print("이름을입력해주세요");
 			String name = scanner.nextLine();
-			namearr = new String[i];
+			
+			if(name.equals("q")) {
+				System.out.println("종료합니다");
+				break;
+			}
+			
+//			String [] namearr2 = new String[i+1];
+			
+			if(namearr.length == i) {
+				System.out.println("문제발생직전");
+				namearr = Arrays.copyOf(namearr,namearr.length * 2);
+			}
+//			for(int j=0;j<i;j++) {
+//				namearr2[j] = namearr[j];
+//			}
+			
 			namearr[i] = name;
-			String [] namearr2 = new String[i];
-			namearr2[i] = namearr[i];
+			
+//			namearr = namearr2;
 			i++;
 			
-//			while(true) {
-//				if(namearr[i] == "q") {
-//					System.out.println("안녕히가세요");
-//					break;
-//				}else {
-//					namearr[i] = name;
-//
-//				}
-//			}
-		
 			
 			
-			
-			
-			
-			System.out.println(name);
-			System.out.println(Arrays.toString(namearr2));
+		}
+		for(String s : namearr) {
+			if(s == null)break;
+			System.out.println(s);
+		}
 		}
 	}
-}

@@ -6,7 +6,7 @@ public class Member {
 	int bbb; //필드에서 만든 걸 구조체라고함
 	
 	
-	int kor;
+	int kor ;
 	int eng ;
 	int mat;
 	
