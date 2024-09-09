@@ -2,19 +2,21 @@ package lesson06_array;
 
 public class Ref {
 	public static void main(String[] args) {
-		String str1 = "ABCD";
-		String str2 = "ABCD";
-		String str3 = new String("ABCD");
+		int[] arr = {1,3,5,7,9};
+		int[] arr2 = arr; // 
 		
-
-		System.out.println(str1.charAt(2));
-		System.out.println(str2.charAt(2));
-		System.out.println(str3.charAt(2));
+		arr[0] = 10;
+		System.out.println(arr2[0]);
+		arr = null;
+		arr2 = null;
 		
-		System.out.println(str1 == str2);
+		int a = 10;
+		int b = a;
 		
-		System.out.println(str1 == str3.intern());
+		a = 20;
+		System.out.println(b);
 		
-		System.out.println(str1.equals(str3));
+		System.out.println(022);
+		System.out.println(0x22);
 	}
 }

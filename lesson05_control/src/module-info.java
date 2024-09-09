@@ -4,5 +4,5 @@
 /**
  * 
  */
-module lesson05_control {
+module lesson5_control {
 }

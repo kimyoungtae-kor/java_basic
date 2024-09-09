@@ -5,26 +5,20 @@ import java.util.Scanner;
 public class WhileEx2 {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-
-		int sum = 0;
-		boolean flag = true;
-		int y = 1;
-		while(flag) {
-			System.out.println("더할 숫자를 입력해주세요");
+		
+		int sum = 0; // 초기화
+//		boolean flag = true; // 반복여부
+		while(true) { // 
+			System.out.println("더할 숫자를 입력하세요 > ");
 			String input = scanner.nextLine();
 			int num = Integer.parseInt(input);
 			sum += num;
 			if(num == 0) {
-				flag = false;
-			}
-			if (y == 3) {
+//				flag = false;
 				break;
 			}
-			y++;
-			System.out.println(y);
 		}
-
-		System.out.println(sum);
+		System.out.println("합계 : " + sum);
 		scanner.close();
 	}
 }
