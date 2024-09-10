@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 // Logic
 public class StudentService {
-	Student[] students = new Student[5];
-	int cnt;
+	private Student[] students = new Student[5];
+	private int cnt;
 	
 	{
 		students[cnt++] = new Student(1, "새똥이", 80, 90, 100);
@@ -15,7 +15,7 @@ public class StudentService {
 		students[cnt++] = new Student(4, "개똥이", 77, 66, 77);
 	}
 	// 학생 등록
-	void add() {
+	public void add() {
 		int no = nextInt("학번");
 		String name = nextLine("이름");
 		int kor = nextInt("국어");
@@ -27,7 +27,7 @@ public class StudentService {
 		students[cnt++] = new Student(no, name, kor, eng, mat);
 	}
 	// 학생 목록 조회
-	void list() {
+	public void list() {
 //		System.out.println("list()");
 		System.out.println("학번   이름    국어    영어    수학    총점    평균");
 		System.out.println("===================================================");
@@ -37,7 +37,7 @@ public class StudentService {
 		System.out.println(Arrays.toString(students));
 	}
 	// 학생 이름, 점수 수정
-	void modify() {
+	public void modify() {
 		// 1. 학번 입력
 		// 2. 학번을 통한 탐색(배열) >> 학생
 		Student s = findByNo();
@@ -47,13 +47,13 @@ public class StudentService {
 			return;
 		}
         s.setName(nextLine("이름"));
-        s.getKor(nextInt("국어"));
-        s.getEng(nextInt("영어"));
-        s.getMat(nextInt("수학"));
+        s.setKor(nextInt("국어"));
+        s.setEng(nextInt("영어"));
+        s.setMat(nextInt("수학"));
 		
 	}
 	// 학생 삭제
-	void remove() {
+	public void remove() {
 		Student s = findByNo();
 		// 3. 이름, 국어, 영어, 수학 점수 변경
 		if(s == null) {
@@ -68,7 +68,7 @@ public class StudentService {
 		}
 	}
 	
-	Student findByNo() {
+	private Student findByNo() {
 		Student student = null;
 		int no = nextInt("학번");
 		for(int i = 0 ; i < cnt ; i++) {

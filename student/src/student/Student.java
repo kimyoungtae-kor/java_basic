@@ -31,6 +31,15 @@ public class Student {
     public void setName(String name) {
         this.name = name;
     }
+    public void setEng(int eng) {
+        this.eng = eng;
+    }
+    public void setKor(int kor) {
+        this.kor = kor;
+    }
+    public void setMat(int kor) {
+        this.mat = kor;
+    }
     
     public int getEng(int eng) {
         return eng;
