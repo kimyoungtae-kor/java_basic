@@ -1,26 +1,22 @@
 package lesson07_oop;
 
 public class Car {
+	// 필드
 	String color;
-	String  company;
+	String company;
 	String type;
-	//필드
 	
+	// 메서드
 	/**
 	 * 전진하는 메서드
-	 * 
 	 */
-	
-	public void go() {
+	void go() {
 		System.out.println("전진하다");
 	}
-	
-	
-	
 	/**
 	 * 후진하는 메서드
 	 */
-	public void back() {
+	void back() {
 		System.out.println("후진하다");
 	}
 }

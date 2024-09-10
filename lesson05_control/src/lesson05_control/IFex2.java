@@ -1,32 +1,35 @@
 package lesson05_control;
 
-import java.util.Random;
-
-public class IFex2 {
-
+public class IfEx2 {
 	public static void main(String[] args) {
-		int score = (int)(Math.random() * 101);
-		System.out.println(score);
-		String grad = "";
-		System.out.println("학점부여 시작");
+//		int score = (int)(Math.random() * 101);
+		int score = 75;
+		String grade = "";
+		
+		System.out.println("학점 부여 시작");
+		
 		if(score >= 90) {
-			grad = "A";
-		}else if(score <=89 && score >= 80) {
-			grad = "B";
-		}else if(score <=79 && score >= 70) {
-			grad = "C";
-		}else if(score <=69 && score >= 60) {
-			grad = "D";
-		}else if(score <=59 && score >= 50) {
-			grad = "E";
-		}else {
-			grad = "F";
+			grade = "A";
+		}
+		else if(score >= 80) {
+			grade = "B";
+		}
+		else if(score >= 70) {
+			grade = "C";
+		}
+		else if(score >= 60) {
+			grade = "D";
+		}
+		else {
+			grade = "F";
 		}
 		
-		if(score >= 80 && score % 10 >=5 || score ==100) {
-			grad +="+";
+		// + 붙이기
+		if(score >= 80 && score % 10 >= 5 || score == 100) {
+			grade += "+";
 		}
-		System.out.println("당신의 학점은:"+grad);
+		
+		System.out.println("당신의 학점은 " + grade + ", 점수는 " + score + "입니다");
+		System.out.println("");
 	}
-
 }

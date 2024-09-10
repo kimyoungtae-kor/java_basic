@@ -1,36 +1,44 @@
 package lesson07_oop;
 
 public class MemberMain {
-	//필드공간
-	
-
+	Member member = new Member();
+	int a = 10;
 	public static void main(String[] args) {
-		//메인메서드공간
-		Member m = new Member(); //객체 생성
-		m.aaa = "10살이얌";
+		
+		Member m = new Member(); // 어제
+		m.age = 10;
 		m.kor = 90;
-		m.eng = 75;
-		m.mat = 60;
+		m.eng = 60;
+		m.mat = 80;
+		System.out.println(m.kor + m.eng + m.mat);
 		System.out.println(m.total());
-		Member m2 = new Member();//객체 생성
-		Member m3 = m; //m과 같은객체
-		System.out.println(m.aaa);
-		m2.kor = 50;
-		m2.eng = 75;
-		m2.mat = 60;
+		Member m2 = new Member(); // 오늘
+		m2.kor = 80;
+		m2.eng = 100;
+		m2.mat = 90;
+		System.out.println(m2.kor + m2.eng + m2.mat);
 		System.out.println(m2.total());
-//인스턴스객체? 독립되고 개별된 객체 new 는 인스턴스륽객체를 생성하는 키워드이다
-//글로벌 객체? 모든영역을 가진 객체
-// 클래스,인터페이스,배열 타입
-//객체명(변수명) = new Member() : 
+		
+		
+		Member m3 = m;
+		
+//		Member m = new Member(); // 어제
+//		int a = 10;
+//		클래스, 인터페이스, 배열 타입
+//		객체(변수)
+//		=
+//		new Member() : 인스턴스
+		
 		if(m == m3) {
-			System.out.println("m ,m2는 같은 객체");
-		}else {
-			System.out.println("m,m2는 다른객체");
+			System.out.println("m, m2는 같은 객체");
+		}
+		else {
+			System.out.println("m, m2는 다른 객체");
 		}
 		
 		MemberMain mm = new MemberMain();
 		MemberMain mm2 = new MemberMain();
+		
+		
 	}
-
 }
