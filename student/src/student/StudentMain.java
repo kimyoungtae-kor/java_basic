@@ -7,8 +7,15 @@ public class StudentMain {
 		// UI
 		// Create Read Update Delete
 		StudentService ss = new StudentService();
+		int input = 0;
 		while(true) {
-			int input = StudentUtils.nextInt("1. 조회 2. 등록 3. 수정 4. 삭제 5. 종료");
+			try {
+				input = StudentUtils.nextInt("1. 조회 2. 등록 3. 수정 4. 삭제 5. 종료");	
+			}catch(NumberFormatException e) {
+				System.out.println("입력오류입니다 다시시도해주세요");
+				continue;
+			}
+			
 			switch (input) {
 			case 1:
 				ss.list();

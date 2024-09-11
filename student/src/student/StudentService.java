@@ -16,9 +16,27 @@ public class StudentService {
 	}
 	// 학생 등록
 	public void add() {
+		boolean good = false;
 		int no = nextInt("학번");
+		
+		
 		String name = nextLine("이름");
+		for(int i =0; i<name.length();i++) {
+			char ch = name.charAt(i);
+			if('가' <= ch && ch <= '힣' ) {
+				good = true;
+			}else {
+				System.out.println("이름을 다시입력해주세요");
+				 return;
+			}
+		}
+
+		
+		
 		int kor = nextInt("국어");
+		
+		
+		
 		int eng = nextInt("영어");
 		int mat = nextInt("수학");
 		if(cnt == students.length) {

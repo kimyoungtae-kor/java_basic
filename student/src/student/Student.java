@@ -2,14 +2,17 @@ package student;
 
 // 학생 예제 > java beans 명세서에 맞게끔 수정
 // field 는 private, method는 public
-public class Student {
+public class Student implements Cloneable {
 	private int no;
 	private String name;
 	private int kor;
 	private int eng;
 	private int mat;
+	private int [] arr;
 
-	public Student() {	}
+	
+	public Student() { }
+
 	
 	public Student(int no, String name, int kor, int eng, int mat) {
 		this.no = no;
@@ -17,6 +20,16 @@ public class Student {
 		this.kor = kor;
 		this.eng = eng;
 		this.mat = mat;
+	}
+	
+	public Student(Student s) {
+		no = s.no;
+		name = s.name;
+		kor = s.kor;
+		eng = s.eng;
+		mat = s.mat;
+		if(s.arr != null)
+		arr = s.arr.clone();
 	}
 	
 	// no getter
@@ -62,5 +75,39 @@ public class Student {
 	public double avg() {
 		return total() / 3d;
 	}
+	//클론연습용
+	@Override
+	public Student clone(){
+		Student obj = null;
+		// TODO Auto-generated method stub
+		try {
+			obj = (Student)super.clone();
+			if(arr != null) {
+				obj.arr = this.arr.clone();	
+			}
+			
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return obj;
+	}
+	
+	
+	//equls연습용
+	//인스턴스 비교
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null || !(obj instanceof Student)) {
+			return false;
+		}
+		Student s = (Student)obj;
+		return no == s.no && name.equals(s.name);
+	}
+	
+
+	
+
+	
 	
 }

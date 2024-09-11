@@ -2,22 +2,21 @@ package diagram;
 
 public abstract class Diagram {
 	
-	public int area(int i){
+
+	
+
+//    public abstract int length();
+	public int length() {
 		return 0;
 	}
-	public int area(int i,int j){
-		return 0;
-	}
-	public int length(int i) {
-		return 0;
-	}
-	public int length(int i,int j) {
-		return 0;
-	}
-	public double volume() {
-		return 0.0;
-	}
+    
+    public abstract int area();
 
 
+	public abstract String toStirng();
+
+	public int volume() {
+		return 0;
+	}
 
 }
