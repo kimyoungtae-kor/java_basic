@@ -16,15 +16,106 @@ public class StudentService {
 	}
 	// 학생 등록
 	public void add() {
-		int no = nextInt("학번");
-		String name = nextLine("이름");
-		int kor = nextInt("국어");
-		int eng = nextInt("영어");
-		int mat = nextInt("수학");
-		if(cnt == students.length) {
-			students = Arrays.copyOf(students, students.length * 2); 
+
+
+		while(true) {
+			int no;
+			boolean boo;
+			while(true){
+				boo = false;
+				no = nextInt("학번");
+				for(int i = 0 ;i<cnt;i++) {
+					if(students[i].getNo() == no) {
+						System.out.println("이미 존재한 학번이있습니다");
+						boo = true;
+						break;
+					}
+				}
+				if(!boo) {
+					boo = false;
+					break;
+
+				}
+			}
+			
+			String name;
+			while(true) {
+				
+				name = nextLine("이름");
+				
+				boolean good = true;
+
+				for(int i =0; i<name.length();i++) {
+					char ch = name.charAt(i);
+					if('가' <= ch && ch <= '힣' && name.length()>1&&name.length()<5) {
+						good = false;
+						break;
+					}
+//						else {
+//						System.out.println("이름을 다시입력해주세요");
+//						}
+				}
+				if(good == false) {
+					break;
+				}else {
+					System.out.println("이름을 다시입력해주세요");
+				}
+			}
+			
+			
+			int kor;
+			while(true) {
+				kor = nextInt("국어");
+				
+				if(kor>=0 && kor <=100) {
+					break;
+				}else {
+					System.out.println("점수는 0~100점까지 입력가능합니다");
+					
+				}
+			}
+			
+			
+			
+			
+			int eng;
+			
+			while(true) {
+				eng = nextInt("영어");
+				
+				if(eng>=0 && eng <=100) {
+					break;
+				}else {
+					System.out.println("점수는 0~100점까지 입력가능합니다");
+					
+				}
+			}
+			
+			
+			
+			
+			
+			int mat;
+			while(true) {
+				mat = nextInt("수학");
+				
+				if(mat>=0 && mat <=100) {
+					break;
+				}else {
+					System.out.println("점수는 0~100점까지 입력가능합니다");
+					
+				}
+			}
+			
+			
+			if(cnt == students.length) {
+				students = Arrays.copyOf(students, students.length * 2); 
+			}
+			students[cnt++] = new Student(no, name, kor, eng, mat);
+			break;
+			
 		}
-		students[cnt++] = new Student(no, name, kor, eng, mat);
+		
 	}
 	// 학생 목록 조회
 	public void list() {

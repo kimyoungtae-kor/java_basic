@@ -16,7 +16,7 @@ public class DiagramMain {
             }
             System.out.println("넓이: " + d.area());
             if(d.volume()>0) {
-                System.out.println("겉넓이:" + d.volume());          	
+                System.out.println("부피:" + d.volume());          	
             }
             
             System.out.println();

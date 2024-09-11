@@ -1,8 +1,8 @@
 package diagram;
 
 public class Cylinder extends Diagram{
-	int r;
-	int h;
+	private int r;
+	private int h;
 	
 	
 	
