@@ -16,26 +16,11 @@ public class StudentService {
 	}
 	// 학생 등록
 	public void add() {
+		int no = nextInt("학번");
+		if(findBy(no) != null) {
+			throw new RuntimeException("중복되지 않는 학번을 입력하세요");
+		}
 
-
-		while(true) {
-			int no;
-			boolean boo;
-			while(true){
-				boo = false;
-				no = nextInt("학번");
-				for(int i = 0 ;i<cnt;i++) {
-					if(students[i].getNo() == no) {
-						System.out.println("이미 존재한 학번이있습니다");
-						boo = true;
-						break;
-					}
-				}
-				if(!boo) {
-					boo = false;
-					break;
-
-				}
 			}
 			
 			String name;
@@ -117,8 +102,6 @@ public class StudentService {
 		}
 		
 	}
-	
-	
 	// 학생 목록 조회
 	public void list() {
 //		System.out.println("list()");
@@ -131,9 +114,9 @@ public class StudentService {
 	}
 	// 학생 이름, 점수 수정
 	public void modify() {
+		Student s = findByNo(nextInt("학번"));
 		// 1. 학번 입력
 		// 2. 학번을 통한 탐색(배열) >> 학생
-		Student s = findByNo();
 		// 3. 이름, 국어, 영어, 수학 점수 변경
 		if(s == null) {
 			System.out.println("입력한 학번은 존재하지 않습니다.");
@@ -147,7 +130,7 @@ public class StudentService {
 	}
 	// 학생 삭제
 	public void remove() {
-		Student s = findByNo();
+		Student s = findByNo(nextInt("학번"));
 		// 3. 이름, 국어, 영어, 수학 점수 변경
 		if(s == null) {
 			System.out.println("입력한 학번은 존재하지 않습니다.");
@@ -161,7 +144,7 @@ public class StudentService {
 		}
 	}
 	
-	private Student findByNo() {
+	private Student findByNo(int no) {
 		Student student = null;
 		int no = nextInt("학번");
 		for(int i = 0 ; i < cnt ; i++) {
