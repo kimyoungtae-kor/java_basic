@@ -4,11 +4,18 @@ import static student.StudentUtils.*;
 import java.util.Arrays;
 
 // Logic
+
+//배열 사라지고 List로
 public class StudentService {
 	private Student[] students = new Student[5];
+	
+	//리스트로 만들어진것은 sort()로 정렬할수있음
+	//버블정렬 for문은 사라짐
+	//존재가필요없어짐
 	private int cnt;
 	
 	{
+		
 		students[cnt++] = new Student(1, "새똥이", 80, 90, 100);
 		students[cnt++] = new Student(2, "개똥이", 77, 66, 77);
 		students[cnt++] = new Student(3, "새똥이", 80, 90, 100);
