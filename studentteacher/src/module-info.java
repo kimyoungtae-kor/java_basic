@@ -1,8 +1,2 @@
-/**
- * 
- */
-/**
- * 
- */
-module studentteacher {
+module student {
 }

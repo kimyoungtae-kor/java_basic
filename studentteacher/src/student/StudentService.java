@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Scanner;
 
 // Logic
 
@@ -13,43 +12,41 @@ import java.util.Scanner;
 
 // "abcdabcd".split("b") >> {"a", "cda", "cd"}
 
+
+
+// 배열을 LIST로
+// 버블정렬 없애고 sort()로 정렬시키기
 public class StudentService {
+	List<Integer> list = new ArrayList<>();
 	private List<Student> students = new ArrayList<Student>();
 	private List<Student> totalSortedStudents;
 	private List<Student> noSortedStudents;
 	private List<Student> nameSortedStudents;
 	
-	
-//	private int cnt;
-	
 	{
-		students.add(new Student(1, "새똥이", 80, 90, 100));
-		students.add(new Student(2, "개똥이", 77, 66, 77));
-		students.add(new Student(3, "새똥이", 80, 90, 100));
-		students.add(new Student(4, "개똥이", 77, 66, 77));
+		students.add(new Student(4, "개똥이", 97, 66, 77));
+		students.add(new Student(3, "박똥이", 77, 66, 77));
+		students.add(new Student(2, "새똥이", 80, 90, 100));
+		students.add( new Student(1, "개똥이", 77, 66, 77));
 		cloneAndSort();
 	}
 	// 학생 등록
 	public void add() {
-//		int no = nextInt("학번");
-		int no = next("학번",Integer.class,i -> i >0,"학번은 0보단 커야합니다");
+		int no = nextInt("학번");
 		if(findBy(no) != null) {
 			throw new RuntimeException("중복되지 않는 학번을 입력하세요");
 		}
-		String name = next("이름",String.class,t -> t.matches("^[가-힣]{2,4}"),"한글로 2~4글자로 입력하세요");
-		int kor = next("국어",Integer.class,i -> i>=0&&i<=100,"점수는 0~100점 입력해주세요");
-		int eng = next("영어",Integer.class,i -> i>=0&&i<=100,"점수는 0~100점 입력해주세요");
-//		int mat = checkRange(next("수학",Integer.class,i -> i>=0&&i<=100,"점수는 0~100점 입력해주세요"));
-		int mat = next("수학",Integer.class,i -> i>=0&&i<=100,"점수는 0~100점 입력해주세요");
-		// 
-		
+		String name = checkName(nextLine("이름"));
+		int kor = checkRange(nextInt("국어"));
+		int eng = checkRange(nextInt("영어"));
+		int mat = checkRange(nextInt("수학"));
 		students.add(new Student(no, name, kor, eng, mat));
 	}
 	// 학생 목록 조회
 	public void list() {
 //		System.out.println("list()");
-		int input = next("1. 입력순 2. 학번순 3. 이름순 4. 석차순",Integer.class,i->i>0&&i<5,"1~4번까지입력해주세요");
-		List<Student> tmp = null;
+		int input = checkRange(nextInt("1. 입력순 2. 학번순 3. 이름순 4. 석차순"), 1, 4);
+		List<Student> tmp = students;
 		switch (input) {
 		case 1:
 			tmp = students;
@@ -69,7 +66,7 @@ public class StudentService {
 		}
 		System.out.println("학번   이름    국어    영어    수학    총점    평균");
 		System.out.println("===================================================");
-		for(int i = 0 ; i < tmp.size() ; i++) {
+		for(int i = 0 ; i < students.size() ; i++) {
 //			System.out.println(students[i]);
 			System.out.println(tmp.get(i));
 		}
@@ -78,28 +75,28 @@ public class StudentService {
 	public void modify() {
 		// 1. 학번 입력
 		// 2. 학번을 통한 탐색(배열) >> 학생
-		Student s = findBy(next("학번",Integer.class,i -> i>0,"학번은 0보다 커야합니다"));
+		Student s = findBy(nextInt("학번"));
 		// 3. 이름, 국어, 영어, 수학 점수 변경
 		if(s == null) {
 			System.out.println("입력한 학번은 존재하지 않습니다.");
 			return;
 		}
-		s.setName(next("이름",String.class, (a) -> { return a.length() >=2 && a.length() <=4; },"이름은 2글자보다 이상 4글자보다 이하여야 합니다"));
-		s.setKor(next("국어",Integer.class,i ->i>=0&&i<=100,"점수는 0~100점 입력해주세요"));
-		s.setEng(next("영어",Integer.class,i -> i>=0 && i <= 100,"점수는 0~100점 입력해주세요"));
-		s.setMat(next("수학",Integer.class,i -> i>=0 && i <= 100, "점수는 0~100점 입력해주세요"));
+		s.setName(checkName(nextLine("이름")));
+		s.setKor(checkRange(nextInt("국어")));
+		s.setEng(checkRange(nextInt("영어")));
+		s.setMat(checkRange(nextInt("수학")));
 		
 	}
 	// 학생 삭제
 	public void remove() {
-		Student s = findBy(next("학번",Integer.class,i -> i >0,"학번은 0보단 커야합니다"));
+		Student s = findBy(nextInt("학번"));
 		// 3. 이름, 국어, 영어, 수학 점수 변경
 		if(s == null) {
 			System.out.println("입력한 학번은 존재하지 않습니다.");
 			return;
 		}
-		students.remove(s);
-	}
+				students.remove(s);
+		}
 	
 	private Student findBy(int no) {
 		Student student = null;
@@ -136,38 +133,69 @@ public class StudentService {
 	 * @param end 종료 값
 	 * @return 원래의 값
 	 */
-//	int checkRange(int num, int start, int end) throws RangeException{
-//		if(num < start || num > end) {
-//			throw new RangeException(start, end);
-//		}
-//		return num;
-//	}
-//	int checkRange(int num) throws RangeException {
-//		return checkRange(num, 0, 100);
-//	}
-//	
+	int checkRange(int num, int start, int end) throws RangeException{
+		if(num < start || num > end) {
+			throw new RangeException(start, end);
+		}
+		return num;
+	}
+	int checkRange(int num) throws RangeException {
+		return checkRange(num, 0, 100);
+	}
+	
 	// 정렬
 	public void cloneAndSort() {
 		noSortedStudents = new ArrayList<Student>(students);
 		nameSortedStudents = new ArrayList<Student>(students);
 		totalSortedStudents = new ArrayList<Student>(students);
 		
-		noSortedStudents.sort((a, b) -> a.getNo() - b.getNo());
-		nameSortedStudents.sort(new Comparator<Student>() {
-			@Override
-			public int compare(Student o1, Student o2) {
-				// TODO Auto-generated method stub
-				return o1.getName().compareTo(o2.getName());
-			}
-		});
-		Comparator<Student> comp = new MyComp();
-		totalSortedStudents.sort(comp);
+		
+		noSortedStudents.sort((s1,s2) -> s1.getNo()-s2.getNo());
+		nameSortedStudents.sort((s1,s2) -> -s1.getName().compareTo(s2.getName()));
+		totalSortedStudents.sort(
+				(s1,s2) ->{
+					return s2.total() -s1.total();
+						
+				}
+						);
+		}
+//		else if(type == 3) {
+//			nameSortedStudents.sort((s1,s2)-> s1.getName().compareTo(null));
+//		}
+//		sort(0, noSortedStudents);
+//		sort(1, nameSortedStudents);
+//		sort(2, totalSortedStudents);
+//	}
+	
+//	private void sort(int type, Student[] target) {
+//		Student[] arr = target;
+//		// 회차 반복
+//		for(int i = 0 ; i < cnt - 1; i++) {
+//			// 비교 반복
+//			for(int j = 0 ; j < cnt - 1 - i; j++) { // 0,1,2,3
+//				// 값 비교 자리 교환
+//				boolean condition = false;
+//				switch (type) {
+//				case 0:
+//					condition = arr[j].getNo() > arr[j+1].getNo();
+//					break;
+//				case 1:
+//					condition = arr[j].getName().compareTo(arr[j+1].getName()) > 0;
+//					break;
+//				case 2:
+//					condition = arr[j].total() < arr[j+1].total();
+//					break;
+//
+//				default:
+//					break;
+//				}
+//				if(condition) {
+//					Student tmp = arr[j];
+//					arr[j] = arr[j+1];
+//					arr[j+1] = tmp;
+//				}
+//			}
+		
+
 	}
-}
-class MyComp implements Comparator<Student> {
-	@Override
-	public int compare(Student o1, Student o2) {
-		// TODO Auto-generated method stub
-		return o2.total() - o1.total();
-	}
-}
+

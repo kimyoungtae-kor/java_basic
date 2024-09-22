@@ -12,12 +12,13 @@ public class Exer {
 	public static void main(String[] args) {
 		// 달력 출력( 최소 이번달)
 		// 이전달,다음달,이전해,다음해,특정 연월 입력시 해당 연월 달력 simpledata 로 년월일 문자열로 포맷터
-
+				
+				
 				Scanner scanner = new Scanner(System.in);
 				Calendar calendar = new GregorianCalendar();
 		        Date date = new Date(calendar.getTimeInMillis()); 
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
-				printC printer = new printC();
+				printerC printer = new printerC();
 		        System.out.println(printer);
 				int aaa =0;
 //				System.out.println(sdf.format(calendar.getTimeInMillis()));
@@ -93,13 +94,22 @@ public class Exer {
 		// URL 분석 (String class 사용)
 				String str = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=%EA%B0%80%EB%82%98%EB%8B%A4%EB%9D%BC";
 				
-				
-				
-				
+		
+								
+				System.out.println(str.indexOf("://"));
 			
 				//1.프로토콜 ://앞에 프로토콜이라고한다
 				String[] Url = str.split("://");
-				String proTocol = Url[0]; 
+				
+				
+				
+				
+				
+				
+				
+				
+				String proTocol = str.substring(0,str.indexOf("://"));
+				
 				//2.도메인 : search.naver.com
 				String[] urlSub = Url[1].split("/");
 				String subDomain = urlSub[0];
@@ -113,7 +123,7 @@ public class Exer {
 				
 				System.out.println("프로토콜 : "+proTocol);
 				System.out.println("도메인 : "+subDomain);
-				System.out.println("파일네임 : "+filename);
+				System.out.println("파일네임 : "+fileName);
 //				System.out.println(Arrays.toString(query));
 				for (String param : query) {
 		            String[] queryString = param.split("=");
@@ -122,6 +132,29 @@ public class Exer {
 		            String value = queryString[1];
 		            System.out.println("키 : "+key + " /// 값: " + value);
 		        }
+	}
+	class MyUrl {
+		String protocol;
+		String domain;
+		String filename = "";
+		String[] queryStrings;
+		
+		public MyUrl(String url) {
+			String str = url;
+
+			str = str.substring(str.indexOf("://")+3);
+			System.out.println("str "+str);
+			
+			int idx = str.indexOf("/");
+			if(idx <0) {
+				domain = str;
+			}
+			else {
+				str = "www.naver.com".substring(0,idx);
+				
+			}
+			System.out.println();
+		}
 	}
 
 }
