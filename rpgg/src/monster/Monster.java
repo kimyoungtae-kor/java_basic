@@ -8,16 +8,20 @@ public abstract class Monster {
 	public int hp;
 	public int attackPower;
 	public int defense;
-	
+	public int takeexe;
 
-	public Monster(String name, int hp, int attackPower, int defense) {
+	public Monster(String name, int hp, int attackPower, int defense,int takeexe) {
 		super();
 		this.name = name;
 		this.hp = hp;
 		maxHp = hp;
 		this.attackPower = attackPower;
 		this.defense = defense;
+		this.takeexe = takeexe;
 	}
+	
+	
+
 	
 	public void takeDamge(int damage) {
 		this.hp -= damage;

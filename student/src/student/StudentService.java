@@ -1,6 +1,11 @@
 package student;
 import static student.StudentUtils.*;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -13,7 +18,7 @@ import java.util.Scanner;
 
 // "abcdabcd".split("b") >> {"a", "cda", "cd"}
 
-public class StudentService {
+public class StudentService implements Serializable{
 	private List<Student> students = new ArrayList<Student>();
 	private List<Student> totalSortedStudents;
 	private List<Student> noSortedStudents;
@@ -21,21 +26,30 @@ public class StudentService {
 	
 	
 //	private int cnt;
-	
+	//데이터베이스없이 파일 읽기쓰기로 학생 정보 저장하기.
 	{
 		students.add(new Student(1, "새똥이", 80, 90, 100));
 		students.add(new Student(2, "개똥이", 77, 66, 77));
 		students.add(new Student(3, "새똥이", 80, 90, 100));
 		students.add(new Student(4, "개똥이", 77, 66, 77));
+		try {
+			loadlist();
+		} catch (FileNotFoundException e) {
+
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+
+			e.printStackTrace();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
 		cloneAndSort();
 	}
 	// 학생 등록
 	public void add() {
 //		int no = nextInt("학번");
-		int no = next("학번",Integer.class,i -> i >0,"학번은 0보단 커야합니다");
-		if(findBy(no) != null) {
-			throw new RuntimeException("중복되지 않는 학번을 입력하세요");
-		}
+		int no = next("학번",Integer.class,n -> findBy(n) == null,"중복되지 않는 학번을 입력하세요");
 		String name = next("이름",String.class,t -> t.matches("^[가-힣]{2,4}"),"한글로 2~4글자로 입력하세요");
 		int kor = next("국어",Integer.class,i -> i>=0&&i<=100,"점수는 0~100점 입력해주세요");
 		int eng = next("영어",Integer.class,i -> i>=0&&i<=100,"점수는 0~100점 입력해주세요");
@@ -47,6 +61,7 @@ public class StudentService {
 	}
 	// 학생 목록 조회
 	public void list() {
+		
 //		System.out.println("list()");
 		int input = next("1. 입력순 2. 학번순 3. 이름순 4. 석차순",Integer.class,i->i>0&&i<5,"1~4번까지입력해주세요");
 		List<Student> tmp = null;
@@ -92,12 +107,8 @@ public class StudentService {
 	}
 	// 학생 삭제
 	public void remove() {
-		Student s = findBy(next("학번",Integer.class,i -> i >0,"학번은 0보단 커야합니다"));
-		// 3. 이름, 국어, 영어, 수학 점수 변경
-		if(s == null) {
-			System.out.println("입력한 학번은 존재하지 않습니다.");
-			return;
-		}
+		Student s = findBy(next("학번",Integer.class,n -> findBy(n) != null,"입력한 학번은 존재하지 않습니다."));
+		
 		students.remove(s);
 	}
 	
@@ -111,24 +122,29 @@ public class StudentService {
 		}
 		return student;
 	}
+	
+	
+	public List<Student> getStudents() {
+		return students;
+	}
 	/**
 	 * 학생이름 유효성 검증, 이름은 반드시 한글, 최소 2 최대 4글자의 한글
 	 * @param name 학생의 이름
 	 */
-	String checkName(String name) {
-		char[] chs = name.toCharArray();
-//		String s = new String(chs);
-		if(chs.length < 2 || chs.length > 4) {
-			throw new RuntimeException("이름은 2글자에서 4글자 사이로 입력하세요");
-		}
-		// '가', '나', '다', '라'
-		for(char c : chs) {
-			if(c < '가' || c > '힣') {
-				throw new RuntimeException("한글로 구성된 이름으로 작성하세요");
-			}
-		}
-		return name;
-	}
+//	String checkName(String name) {
+//		char[] chs = name.toCharArray();
+////		String s = new String(chs);
+//		if(chs.length < 2 || chs.length > 4) {
+//			throw new RuntimeException("이름은 2글자에서 4글자 사이로 입력하세요");
+//		}
+//		// '가', '나', '다', '라'
+//		for(char c : chs) {
+//			if(c < '가' || c > '힣') {
+//				throw new RuntimeException("한글로 구성된 이름으로 작성하세요");
+//			}
+//		}
+//		return name;
+//	}
 	/**
 	 * 범위에 대한 탐색 start 이상, end 이하의 조건을 만족하지 않을 경우 예외 발생
 	 * @param num 검증 대상 숫자
@@ -163,6 +179,13 @@ public class StudentService {
 		Comparator<Student> comp = new MyComp();
 		totalSortedStudents.sort(comp);
 	}
+	
+	
+	public void loadlist() throws FileNotFoundException, IOException, ClassNotFoundException {
+		ObjectInputStream dis = new ObjectInputStream(new FileInputStream("student.txt"));
+		List<Student> result = (List<Student>)dis.readObject();
+		students = result;
+	}
 }
 class MyComp implements Comparator<Student> {
 	@Override
@@ -171,3 +194,4 @@ class MyComp implements Comparator<Student> {
 		return o2.total() - o1.total();
 	}
 }
+

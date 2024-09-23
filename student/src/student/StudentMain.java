@@ -1,12 +1,16 @@
 package student;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Scanner;
 import static student.StudentUtils.*;
 public class StudentMain {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		// UI
 		// Create Read Update Delete
 		StudentService ss = new StudentService();
+
 		while(true) {
 			try {
 				int input = next("1. 조회 2. 등록 3. 수정 4. 삭제 5. 종료",Integer.class,i -> i >0 && i <6,"1~5번까지만 선택헤주세요");
@@ -27,6 +31,8 @@ public class StudentMain {
 					ss.cloneAndSort();
 					break;
 				case 5:
+					ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("student.txt"));
+					oos.writeObject(ss.getStudents());
 					System.out.println("bye");
 					return;
 				default:

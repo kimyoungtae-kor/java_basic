@@ -41,7 +41,8 @@ public class RpgMain {
 				}
 				
 				if(monster.hp <=0) {
-					System.out.println(monster.name + "은 죽었다");
+					player.grow(monster.takeexe);
+					System.out.println(monster.name + "은 죽었다" + " 현재경험치 : "+player.exp);
 				}
 			}
 			monsteridx[spawnMonster].hp = monsteridx[spawnMonster].maxHp;
