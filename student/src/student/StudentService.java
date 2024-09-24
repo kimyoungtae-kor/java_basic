@@ -1,12 +1,18 @@
 package student;
 import static student.StudentUtils.*;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.Comparator;
 import java.util.List;
-import java.util.Scanner;
+
 
 // Logic
 
@@ -14,6 +20,7 @@ import java.util.Scanner;
 
 // "abcdabcd".split("b") >> {"a", "cda", "cd"}
 
+@SuppressWarnings("serial")
 public class StudentService implements Serializable{
 	private List<Student> students = new ArrayList<Student>();
 	private List<Student> totalSortedStudents;
@@ -24,10 +31,24 @@ public class StudentService implements Serializable{
 //	private int cnt;
 	//데이터베이스없이 파일 읽기쓰기로 학생 정보 저장하기.
 	{
-		students.add(new Student(1, "새똥이", 80, 90, 100));
-		students.add(new Student(2, "개똥이", 77, 66, 77));
-		students.add(new Student(3, "새똥이", 80, 90, 100));
-		students.add(new Student(4, "개똥이", 77, 66, 77));
+
+		try {
+			loadlist();
+		} catch (FileNotFoundException e) {
+			
+			students.add(new Student(1, "새똥이", 80, 90, 100));
+			students.add(new Student(2, "개똥이", 77, 66, 77));
+			students.add(new Student(3, "새똥이", 80, 90, 100));
+			students.add(new Student(4, "개똥이", 77, 66, 77));
+			System.out.println("파일 가져오기 실패,초기화 더미데이터 처리 완료");
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+
+			e.printStackTrace();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
 		cloneAndSort();
 	}
 	// 학생 등록
@@ -106,6 +127,23 @@ public class StudentService implements Serializable{
 		}
 		return student;
 	}
+	
+	
+	public List<Student> getStudents() {
+		return students;
+	}
+	
+	public void save() {
+		
+		try {
+			ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream("student.ser"));
+			stream.writeObject(students);
+			
+		}  catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * 학생이름 유효성 검증, 이름은 반드시 한글, 최소 2 최대 4글자의 한글
 	 * @param name 학생의 이름
@@ -157,6 +195,17 @@ public class StudentService implements Serializable{
 		});
 		Comparator<Student> comp = new MyComp();
 		totalSortedStudents.sort(comp);
+		
+		save();
+	}
+	
+	
+	public void loadlist() throws FileNotFoundException, IOException, ClassNotFoundException {
+		ObjectInputStream dis = new ObjectInputStream(new FileInputStream("student.ser"));
+		List<Student> result = (List<Student>)dis.readObject();
+
+		students = result;
+		dis.close();
 	}
 }
 class MyComp implements Comparator<Student> {
@@ -166,3 +215,4 @@ class MyComp implements Comparator<Student> {
 		return o2.total() - o1.total();
 	}
 }
+
