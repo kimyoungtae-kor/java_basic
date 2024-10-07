@@ -21,7 +21,7 @@ public class Testmain {
 		System.out.println(level + ", " + this.exp);
 		
 		if (요구경험치 >= exe) {
-			this.exp -= 요구경험치;
+			this.exp += 요구경험치;
 			System.out.println("레벨업!!!");
 			level++;
 		}

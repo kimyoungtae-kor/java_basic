@@ -34,17 +34,29 @@ public abstract class Character {
 	
 	public void grow(int exe) {
 		this.exp += exe;
-		
-		int requireExp = (int) (10 * Math.pow(2, level - 1));
-		
-		
-		if (requireExp >= exe) {
-			this.exp -= requireExp;
+		int lev = this.level;
+		int requireExp = (int) (10 * Math.pow(2, level -1));
+		System.out.println("rexp  "+requireExp);
+		System.out.println("exp  "+exp);
+//		if (requireExp >= exe) {
+//			exp -= requireExp;
+//			
+//			System.out.println("레벨업!!!");
+//
+//			level++;
+//			hp = maxHp;
+//
+//		}
+// if문은 경험치 음수로 출력되는 문제가생김  필요경험치가 현재 경험치보다 값이 더높아서 발생함
+		while(requireExp <= exe) {
+			exp -= requireExp;
+			
 			System.out.println("레벨업!!!");
 			level++;
 			hp = maxHp;
+			
+			requireExp = (int) (10 * Math.pow(2, level -1));
 		}
-		
 		
 	}
 

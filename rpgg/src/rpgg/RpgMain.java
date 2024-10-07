@@ -18,32 +18,39 @@ public class RpgMain {
 		String name = scanner.nextLine();
 		
 		Character player = new Warrior(name);
-		
+
 		while(player.hp >0) {
-			
+			int turn = 1;
 			int spawnMonster = (int)(Math.random() * monsteridx.length);
 			Monster monster = monsteridx[spawnMonster];
 			System.out.println(name+" 은(는)"+"야생의 "+ monster.name +"만났다!");
 			
 			while(monster.hp >0) {
-				System.out.println("1)공격 2)스킬");
-				int ch = scanner.nextInt();
-				
-				if(ch == 1) {
-					player.attack(monster);
-				}else if(ch == 2) {
-					System.out.println("아직 미구현입니다");
+				if(turn%2 == 1) {
+					System.out.println("1)공격 2)스킬");
+					int ch = scanner.nextInt();
+					if(ch == 1) {
+						player.attack(monster);
+					}else if(ch == 2) {
+						System.out.println("아직 미구현입니다");
+					}
 				}
+
 				
 				
-				if(monster.hp > 0 && ch != 2) {
+				
+				
+				if(monster.hp > 0 && turn%2 == 0) {
 					monster.attack(player);
 				}
 				
 				if(monster.hp <=0) {
 					player.grow(monster.takeexe);
-					System.out.println(monster.name + "은 죽었다" + " 현재경험치 : "+player.exp);
+					System.out.println(monster.name + "은 죽었다" + " 현재경험치 : " + player.exp);
 				}
+				turn ++;
+				System.out.println(turn);
+
 			}
 			monsteridx[spawnMonster].hp = monsteridx[spawnMonster].maxHp;
 		}
